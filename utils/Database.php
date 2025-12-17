@@ -1,0 +1,39 @@
+<?php
+
+require_once 'config.php';
+
+class Database
+{
+
+    private $host = DB_HOST;
+    private $user = DB_USER;
+    private $pass = DB_PASS;
+    private $dbname = DB_NAME;
+
+    private $conn;
+
+    public function __construct()
+    {
+        $this->connect();
+    }
+
+    private function connect()
+    {
+        try {
+            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8";
+
+            $this->conn = new PDO($dsn, $this->user, $this->pass);
+
+            // Opciones recomendadas
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
+        }
+    }
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
+}
