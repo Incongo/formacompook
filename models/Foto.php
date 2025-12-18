@@ -36,4 +36,17 @@ class Foto
     {
         return $this->descripcion;
     }
+
+    public function agregarVoto($usuarios)
+    {
+        array_push($this->votos, $usuarios);
+    }
+    public function getVotos()
+    {
+        return $this->votos;
+    }
+    public function getVotosCount()
+    {
+        return count($this->votos);
+    }
 }
